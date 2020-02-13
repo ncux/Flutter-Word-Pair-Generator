@@ -7,6 +7,7 @@ class RandonWordPair extends StatefulWidget {
   RandonWordPairState createState() => RandonWordPairState();
 }
 
+
 class RandonWordPairState extends State<RandonWordPair> {
 
   final randomWordPairs = <WordPair>[];
@@ -29,6 +30,7 @@ class RandonWordPairState extends State<RandonWordPair> {
     );
   }
 
+
   Widget _buildRow(WordPair wordPair) {
 
     final alreadySaved = savedWordPairs.contains(wordPair);
@@ -44,8 +46,18 @@ class RandonWordPairState extends State<RandonWordPair> {
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved? Colors.red: null,
       ),
+      onTap: () {
+        setState(() {
+          if(alreadySaved) {
+            savedWordPairs.remove(wordPair);
+          } else {
+            savedWordPairs.add(wordPair);
+          }
+        });
+      },
     );
   }
+
 
   Widget build(BuildContext context) {
 
@@ -62,8 +74,24 @@ class RandonWordPairState extends State<RandonWordPair> {
           ),
         ),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: viewSavedWordPairs,
+          )
+        ],
       ),
       body: _buildList(),
     );
+  }
+
+  void viewSavedWordPairs() {
+    Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+
+          }
+        )
+    )
   }
 }
