@@ -89,9 +89,28 @@ class RandonWordPairState extends State<RandonWordPair> {
     Navigator.of(context).push(
         MaterialPageRoute(
           builder: (BuildContext context) {
+            final Iterable<ListTile> selectedTiles = savedWordPairs.map((WordPair wordPair) {
+              return ListTile(
+                title: Text(
+                  wordPair.asPascalCase,
+                  style: TextStyle(fontSize: 18),
+                ),
+              );
+            });
 
+            final List<Widget> divider = ListTile.divideTiles(context: context, tiles: selectedTiles).toList();
+
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Saved WordPairs',
+                  style: TextStyle(fontFamily: 'SigmarOne', fontSize: 20, letterSpacing: 4, color: Colors.greenAccent),
+                ),
+              ),
+              body: ListView(children: divider)
+            );
           }
         )
-    )
+    );
   }
 }
